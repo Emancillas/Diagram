@@ -7,7 +7,8 @@ const CardContainer = styled.div`
     height: 70px;
     border-radius: 8px;
     box-shadow: 3px 1px 6px #D2DAFF;
-    color: black
+    color: black;
+    margin: 20px 40px;
 `;
 
 export {CardContainer}
