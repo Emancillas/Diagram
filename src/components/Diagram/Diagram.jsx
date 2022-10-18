@@ -1,20 +1,40 @@
+import { useEffect, useRef } from "react";
 import { UserCard } from "../UserCard";
+import UserList from "../UserCard/UserList";
 import styles from "./Diagram.module.sass";
 
 const Diagram = ({ data }) => {
-  const siblings = data.siblings.length;
-  const children = data.children.length;
+  const siblingsLength = data.siblings.length;
+  const childrenLength = data.children.length;
+  const userPos = Math.round((siblingsLength + 1) / 2);
+  const scroll = useRef();
+  useEffect(() => {
+    scroll.current.scrollIntoView({
+      block: "center",
+      inline: "center",
+      behavior: "smooth",
+    });
+  }, []);
+  console.log(`childs: ${childrenLength} siblings: ${siblingsLength}`);
   return (
     <div className={styles.Diagram}>
       <div className={styles.parent}>
         <UserCard data={data.parent} parent={false} child />
       </div>
-      <div className={styles.mainUser}>
-        <UserCard data={data} child />
+      <div className={styles.siblings}>
+        {siblingsLength >= 1 && <span className={styles.line}></span>}
+        <div className={styles.users}>
+          <div style={{gridColumn: userPos }}>
+            <UserCard data={data} parent child cardRef={scroll} />
+          </div>
+          <UserList data={data.siblings} siblings={siblingsLength}/>
+        </div>
       </div>
       <div className={styles.childrens}>
-            <UserCard data={data.children[0]} toLeft/>
-            <UserCard data={data.children[1]} toRight/>
+        <span className={styles.line}></span>
+        <div className={styles.users}>
+          <UserList data={data.children}/>
+        </div>
       </div>
     </div>
   );

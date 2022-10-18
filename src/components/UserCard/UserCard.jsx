@@ -6,43 +6,39 @@ import WorkIcon from "@mui/icons-material/Work";
 import EmailIcon from "@mui/icons-material/Email";
 import styles from "./UserCard.module.sass";
 
-
-const UserCard = ({
-  data,
-  parent = true,
-  child,
-  toLeft,
-  toRight,
-}) => {
+const UserCard = ({ data, parent = true, child, cardRef }) => {
   return (
-    <>
-      <CardContainer>
-      {child && (<span className={styles.child}></span>)}
-        {parent && (<span className={styles.parent}></span>)}
-        {toLeft && (<span className={styles.left}></span>)}
-        {toRight && (<span className={styles.right}></span>)}
-        <Avatar sx={{width: "60px", height: "60px"}}
+    <div>
+      <CardContainer ref={cardRef}>
+        <Avatar
+          sx={{ width: "60px", height: "60px" }}
           className={styles.avatar}
           alt={`${data.name} ${data.lastname}`}
           src={`/assets/${data.url}`}
           variant="circular"
         />
+        {parent ? <span className={styles.parent}></span> : <span className={styles.noparent}></span> }
         <Container>
           <div className={styles.textContainer}>
-            <PersonIcon sx={{width: "8px", height: "8px", color: "#B1B2FF"}}/>
+            <PersonIcon
+              sx={{ width: "8px", height: "8px", color: "#B1B2FF" }}
+            />
             <p className={styles.name}> {`${data.name} ${data.lastname}`}</p>
           </div>
           <div className={styles.textContainer}>
-            <WorkIcon sx={{width: "8px", height: "8px", color: "#AAC4FF"}}/>
+            <WorkIcon sx={{ width: "8px", height: "8px", color: "#AAC4FF" }} />
             <p className={styles.job}> {data.job} </p>
           </div>
           <div className={styles.textContainer}>
-            <EmailIcon sx={{width: "8px", height: "8px", color: "#96969686"}}/>
+            <EmailIcon
+              sx={{ width: "8px", height: "8px", color: "#96969686" }}
+            />
             <span className={styles.email}>{data.email}</span>
           </div>
         </Container>
+        {child ? <span className={styles.child}></span> : <span className={styles.nochild}></span> }
       </CardContainer>
-    </>
+    </div>
   );
 };
 

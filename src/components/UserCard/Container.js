@@ -4,15 +4,15 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    margin-top: -50px;
     align-items: flex-start;
     justify-content: center;
-    width: 90px;
-    height: 60px;
+    width: 90%;
+    height: fit-content;
     font-size: 0.5rem;
     overflow: hidden;
     line-height: 1;
-    margin-left: 25px;
+    margin-top: -50%;
+    margin-left: 30px;
 `;
 
 export {Container}
