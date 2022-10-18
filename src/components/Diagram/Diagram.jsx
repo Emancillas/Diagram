@@ -1,41 +1,53 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UserCard } from "../UserCard";
 import UserList from "../UserCard/UserList";
 import styles from "./Diagram.module.sass";
 
 const Diagram = ({ data }) => {
+  const [parent, setParent] = useState(false)
+  const [siblings, setSiblings] = useState(false)
+  const [childs, setChilds] = useState(false)
   const siblingsLength = data.siblings.length;
-  const childrenLength = data.children.length;
   const userPos = Math.round((siblingsLength + 1) / 2);
   const scroll = useRef();
+  
+  const handleChilds = () => {
+    data.children.length > 1 ? setChilds(true) : setChilds(false)
+    data.children.length > 1 ? setSiblings(true) : setSiblings(false)
+    data.children.length > 1 ? setParent(true) : setParent(false)
+  }
+
   useEffect(() => {
+    handleChilds()
     scroll.current.scrollIntoView({
       block: "center",
       inline: "center",
-      behavior: "smooth",
+      behavior: "smooth"
     });
   }, []);
-  console.log(`childs: ${childrenLength} siblings: ${siblingsLength}`);
+
   return (
     <div className={styles.Diagram}>
+      {parent &&
       <div className={styles.parent}>
         <UserCard data={data.parent} parent={false} child />
-      </div>
+      </div>}
       <div className={styles.siblings}>
         {siblingsLength >= 1 && <span className={styles.line}></span>}
         <div className={styles.users}>
           <div style={{gridColumn: userPos }}>
-            <UserCard data={data} parent child cardRef={scroll} />
+            <UserCard data={data} parent child={childs} cardRef={scroll} />
           </div>
-          <UserList data={data.siblings} siblings={siblingsLength}/>
+          {siblings && <UserList data={data.siblings} siblings={siblingsLength}/>}
         </div>
       </div>
-      <div className={styles.childrens}>
+      {childs &&
+        <div className={styles.childrens}>
         <span className={styles.line}></span>
         <div className={styles.users}>
           <UserList data={data.children}/>
         </div>
-      </div>
+      </div>}
     </div>
   );
 };
