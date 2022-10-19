@@ -4,50 +4,53 @@ import UserList from "../UserCard/UserList";
 import styles from "./Diagram.module.sass";
 
 const Diagram = ({ data }) => {
-  const [parent, setParent] = useState(false)
-  const [siblings, setSiblings] = useState(false)
-  const [childs, setChilds] = useState(false)
+  const [hasParent, setHasParent] = useState(false);
+  const [siblings, setSiblings] = useState(false);
+  const [childs, setChilds] = useState(false);
   const siblingsLength = data.siblings.length;
   const userPos = Math.round((siblingsLength + 1) / 2);
   const scroll = useRef();
-  
-  const handleChilds = () => {
-    data.children.length > 1 ? setChilds(true) : setChilds(false)
-    data.children.length > 1 ? setSiblings(true) : setSiblings(false)
-    data.children.length > 1 ? setParent(true) : setParent(false)
-  }
 
+  const handleChilds = () => {
+    data.children.length > 1 ? setChilds(true) : setChilds(false);
+    data.siblings.length > 1 ? setSiblings(true) : setSiblings(false);
+    data.parent != undefined ? setHasParent(true) : setHasParent(false);
+  };
   useEffect(() => {
-    handleChilds()
+    handleChilds();
     scroll.current.scrollIntoView({
       block: "center",
       inline: "center",
-      behavior: "smooth"
+      behavior: "smooth",
     });
   }, []);
-
+  console.log(data.parent);
   return (
     <div className={styles.Diagram}>
-      {parent &&
-      <div className={styles.parent}>
-        <UserCard data={data.parent} parent={false} child />
-      </div>}
+      {hasParent && (
+        <div className={styles.parent}>
+          <UserCard data={data.parent} parent={false} child />
+        </div>
+      )}
       <div className={styles.siblings}>
         {siblingsLength >= 1 && <span className={styles.line}></span>}
         <div className={styles.users}>
-          <div style={{gridColumn: userPos }}>
+          <div style={{ gridColumn: userPos }}>
             <UserCard data={data} parent child={childs} cardRef={scroll} />
           </div>
-          {siblings && <UserList data={data.siblings} siblings={siblingsLength}/>}
+          {siblings && (
+            <UserList data={data.siblings} siblings={siblingsLength} />
+          )}
         </div>
       </div>
-      {childs &&
+      {childs && (
         <div className={styles.childrens}>
-        <span className={styles.line}></span>
-        <div className={styles.users}>
-          <UserList data={data.children}/>
+          <span className={styles.line}></span>
+          <div className={styles.users}>
+            <UserList data={data.children} />
+          </div>
         </div>
-      </div>}
+      )}
     </div>
   );
 };

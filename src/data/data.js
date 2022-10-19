@@ -24,7 +24,7 @@ export const data = {
             "name":"Alberto",
             "lastname": "Santiago",
             "job": "Ocupation",
-            "email": "",
+            "email": "albertosantiagofjffyttyfytfymukiuguyjgyjugghjgj@decentrauniverse.com",
             "children": [
                 {
                     "name":"Josue",
