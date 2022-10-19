@@ -3,7 +3,7 @@ import { UserCard } from "../UserCard";
 import UserList from "../UserCard/UserList";
 import styles from "./Diagram.module.sass";
 
-const Diagram = ({ data }) => {
+const Diagram = ({ data, scale, origin }) => {
   const [hasParent, setHasParent] = useState(false);
   const [siblings, setSiblings] = useState(false);
   const [childs, setChilds] = useState(false);
@@ -20,13 +20,12 @@ const Diagram = ({ data }) => {
     handleChilds();
     scroll.current.scrollIntoView({
       block: "center",
-      inline: "center",
+      inline: "start",
       behavior: "smooth",
     });
   }, []);
-  console.log(data.parent);
   return (
-    <div className={styles.Diagram}>
+    <div className={styles.Diagram} style={{ transform: scale }}> 
       {hasParent && (
         <div className={styles.parent}>
           <UserCard data={data.parent} parent={false} child />
