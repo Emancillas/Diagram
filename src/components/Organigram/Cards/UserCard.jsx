@@ -4,12 +4,12 @@ import { Container } from "./Container";
 import PersonIcon from "@mui/icons-material/Person";
 import WorkIcon from "@mui/icons-material/Work";
 import EmailIcon from "@mui/icons-material/Email";
-import styles from "./UserCard.module.sass";
+import styles from "../styles/UserCard.module.sass";
 
 const UserCard = ({ data, parent = true, child, cardRef }) => {
   return (
     <div>
-      <CardContainer ref={cardRef}>
+      <CardContainer>
         <Avatar
           sx={{ width: "60px", height: "60px" }}
           className={styles.avatar}
@@ -25,9 +25,9 @@ const UserCard = ({ data, parent = true, child, cardRef }) => {
             />
             <p className={styles.name}> {`${data.name} ${data.lastname}`}</p>
           </div>
-          <div className={styles.textContainer}>
+          <div className={styles.textContainer} >
             <WorkIcon sx={{ width: "8px", height: "8px", color: "#AAC4FF" }} />
-            <p className={styles.job}> {data.job} </p>
+            <p className={styles.job} ref={cardRef}> {data.job} </p>
           </div>
           <div className={styles.textContainer}>
             <EmailIcon

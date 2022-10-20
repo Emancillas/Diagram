@@ -1,6 +1,6 @@
 import ExploreIcon from '@mui/icons-material/Explore';
 import { IconButton } from '@mui/material';
-import styles from "./styles/Controls.module.sass"
+import styles from "../styles/controls.module.sass";
 
 const ResetButton = ({ onClick }) => {
   return (
@@ -17,4 +17,4 @@ const ResetButton = ({ onClick }) => {
   )
 }
 
-export default ResetButton
+export { ResetButton }

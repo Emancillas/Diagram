@@ -8,9 +8,3 @@
   overflow: hidden;
 }
 
-.container{
-  width: 390px;
-  height: 600px;
-  overflow: auto;
-  background: white;
-}

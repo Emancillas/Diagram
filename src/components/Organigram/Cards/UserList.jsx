@@ -10,4 +10,4 @@ const UserList = ({ data }) => {
   );
 };
 
-export default UserList;
+export {UserList}
